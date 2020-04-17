@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useContext } from 'react';
 import './App.css';
 
+import LoggedContext from './Context.js'
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+  let login = function() {
+    return( <LoggedContext.Provider value="true"></LoggedContext.Provider> )
+  }
+
+  // const logout = function() {
+  //   return( <LoggedContext.Provider value="false"></LoggedContext.Provider> )
+  // }
+
+  return(
+    <div>
+      {login}
+      <LoggedContext.Consumer>
+        {value => {
+          if ( value ) {
+            return(<h1>Logged</h1> )
+          } else {
+            return(<h1>Please login</h1> )
+          }
+        }}
+      </LoggedContext.Consumer>
     </div>
   );
 }
